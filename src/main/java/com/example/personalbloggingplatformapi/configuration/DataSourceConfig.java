@@ -1,4 +1,4 @@
-package com.example.personalbloggingplatformapi;
+package com.example.personalbloggingplatformapi.configuration;
 
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -13,9 +13,9 @@ public class DataSourceConfig {
     public DataSource getDataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create()
                 .driverClassName("org.postgresql.Driver")
-                .url("jdbc:postgresql://localhost:5432/personal_blogging")
+                .url("jdbc:postgresql://localhost:5432/postgres")
                 .username("postgres")
-                .password("12345");
+                .password("123456789");
         return dataSourceBuilder.build();
     }
 }
