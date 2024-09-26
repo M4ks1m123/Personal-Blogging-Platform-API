@@ -1,11 +1,9 @@
-package com.example.personalbloggingplatformapi.domain.entities;
+package com.example.personalbloggingplatformapi.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
@@ -16,9 +14,7 @@ public class ArticleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "article_id_seq")
-    Long id;
+    private Long id;
 
-    String title;
-
-    Timestamp publishingDate;
+    private String title;
 }

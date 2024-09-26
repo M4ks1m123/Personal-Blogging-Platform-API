@@ -1,14 +1,13 @@
 package com.example.personalbloggingplatformapi.controllers;
 
-import com.example.personalbloggingplatformapi.domain.entities.ArticleEntity;
+import com.example.personalbloggingplatformapi.domain.entity.ArticleEntity;
 import com.example.personalbloggingplatformapi.services.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 public class ArticleController {
@@ -21,10 +20,19 @@ public class ArticleController {
     }
 
     @PostMapping(path="/articles")
-    public ResponseEntity<ArticleEntity> getArticle(@RequestBody ArticleEntity articleEntity) {
+    public ResponseEntity<ArticleEntity> postArticle(@RequestBody ArticleEntity articleEntity) {
 
         ArticleEntity savedArticleEntity = articleService.save(articleEntity);
         return new ResponseEntity<>(savedArticleEntity, HttpStatus.CREATED);
 
+    }
+
+    @GetMapping(path = "/articles/{id}")
+    public ResponseEntity<ArticleEntity> getArticle(@PathVariable("id") Long id){
+
+        Optional<ArticleEntity> foundArticle = articleService.getById(id);
+        return foundArticle.map(articleEntity -> new ResponseEntity<>(articleEntity, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND)
+        );
     }
 }

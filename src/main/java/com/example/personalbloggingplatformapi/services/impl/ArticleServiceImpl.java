@@ -1,9 +1,11 @@
 package com.example.personalbloggingplatformapi.services.impl;
 
-import com.example.personalbloggingplatformapi.domain.entities.ArticleEntity;
+import com.example.personalbloggingplatformapi.domain.entity.ArticleEntity;
 import com.example.personalbloggingplatformapi.repositories.ArticleRepository;
 import com.example.personalbloggingplatformapi.services.ArticleService;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -16,5 +18,10 @@ public class ArticleServiceImpl implements ArticleService {
 
     public ArticleEntity save(ArticleEntity articleEntity) {
         return articleRepository.save(articleEntity);
+    }
+
+    @Override
+    public Optional<ArticleEntity> getById(long id) {
+        return articleRepository.findById(id);
     }
 }
