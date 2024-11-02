@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
@@ -17,4 +18,9 @@ public class ArticleEntity {
     private Long id;
 
     private String title;
+
+    private String tag;
+
+    @Column(name="pub_date")
+    private Timestamp publishingDate;
 }

@@ -1,12 +1,29 @@
 package com.example.personalbloggingplatformapi.services;
 
 import com.example.personalbloggingplatformapi.domain.entity.ArticleEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ArticleService {
 
-    public ArticleEntity save(ArticleEntity articleEntity);
+    ArticleEntity save(ArticleEntity articleEntity);
 
-    public Optional<ArticleEntity> getById(long id);
+    Optional<ArticleEntity> findById(Long id);
+
+    List<ArticleEntity> findAll();
+
+    Page<ArticleEntity> findAll(Pageable pageable);
+
+    List<ArticleEntity> findAllByTag(String tag);
+
+    Page<ArticleEntity> findAllByTag(String tag, Pageable pageable);
+
+    void delete(Long id);
+
+    ArticleEntity patchById(Long id, ArticleEntity articleEntity);
+
+    boolean isExists(Long id);
 }
