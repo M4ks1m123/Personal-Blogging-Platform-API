@@ -4,7 +4,9 @@ import com.example.personalbloggingplatformapi.domain.entity.ArticleEntity;
 import com.example.personalbloggingplatformapi.services.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,21 +41,20 @@ public class ArticleController {
         );
     }
 
-//    @GetMapping(path = "/articles")
-//    public List<ArticleEntity> getArticles(){
-//        return articleService.findAll();
-//    }
-
     @GetMapping(path = "/articles")
-    public Page<ArticleEntity> getArticles(@RequestParam("tag") Optional<String> tag, Pageable pageable){
+    public List<ArticleEntity> getArticles(
+            @RequestParam("tag")Optional<String> tag,
+            @RequestParam(value = "page", defaultValue = "0")Integer page,
+            @RequestParam(value = "size", defaultValue = "10")Integer size
+            ){
+
+        Pageable pageParams = PageRequest.of(page, size, Sort.by("publishingDate").descending());
 
         if(tag.isPresent()) {
-            System.out.println(tag.get());
-            Page<ArticleEntity> articles = articleService.findAllByTag(tag.get(), pageable);
-            return articles;
+            return articleService.findAllByTag(tag.get(), pageParams);
         }
 
-        return articleService.findAll(pageable);
+        return articleService.findAll(pageParams);
     }
 
     @DeleteMapping(path = "/articles/{id}")

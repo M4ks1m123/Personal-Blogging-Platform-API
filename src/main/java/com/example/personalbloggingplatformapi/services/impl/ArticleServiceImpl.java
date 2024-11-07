@@ -3,7 +3,6 @@ package com.example.personalbloggingplatformapi.services.impl;
 import com.example.personalbloggingplatformapi.domain.entity.ArticleEntity;
 import com.example.personalbloggingplatformapi.repositories.ArticleRepository;
 import com.example.personalbloggingplatformapi.services.ArticleService;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -21,19 +20,16 @@ public class ArticleServiceImpl implements ArticleService {
         this.articleRepository = articleRepository;
     }
 
-    //TODO
     @Override
     public ArticleEntity save(ArticleEntity articleEntity) {
         return articleRepository.save(articleEntity);
     }
 
-    //TODO
     @Override
     public Optional<ArticleEntity> findById(Long id) {
         return articleRepository.findById(id);
     }
 
-    //TODO
     @Override
     public List<ArticleEntity> findAll() {
         return StreamSupport
@@ -45,33 +41,20 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Page<ArticleEntity> findAll(Pageable pageable) {
+    public List<ArticleEntity> findAll(Pageable pageable) {
         return articleRepository.findAll(pageable);
     }
 
-    //TODO
     @Override
-    public List<ArticleEntity> findAllByTag(String tag) {
-        return StreamSupport
-                .stream(articleRepository
-                                .findAllByTag(tag)
-                                .spliterator(),
-                        false)
-                .collect(Collectors.toList());
+    public List<ArticleEntity> findAllByTag(String tag, Pageable pageable) {
+        return articleRepository.findAllByTag(tag, pageable);
     }
 
-    @Override
-    public Page<ArticleEntity> findAllByTag(String tag, Pageable pageable) {
-        return articleRepository.findAll(pageable);
-    }
-
-    //TODO:
     @Override
     public void delete(Long id) {
         articleRepository.deleteById(id);
     }
 
-    //TODO:
     @Override
     public ArticleEntity patchById(Long id, ArticleEntity articleEntity) {
         articleEntity.setId(id);

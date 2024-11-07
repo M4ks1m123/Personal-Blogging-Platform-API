@@ -1,5 +1,6 @@
 package com.example.personalbloggingplatformapi.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,6 @@ public class ArticleEntity {
 
     private String tag;
 
-    @Column(name="pub_date")
+    @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     private Timestamp publishingDate;
 }

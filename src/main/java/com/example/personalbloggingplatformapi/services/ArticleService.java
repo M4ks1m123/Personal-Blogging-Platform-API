@@ -15,11 +15,9 @@ public interface ArticleService {
 
     List<ArticleEntity> findAll();
 
-    Page<ArticleEntity> findAll(Pageable pageable);
+    List<ArticleEntity> findAll(Pageable pageable);
 
-    List<ArticleEntity> findAllByTag(String tag);
-
-    Page<ArticleEntity> findAllByTag(String tag, Pageable pageable);
+    List<ArticleEntity> findAllByTag(String tag, Pageable pageable);
 
     void delete(Long id);
 
